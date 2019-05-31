@@ -47,4 +47,22 @@ extension UILayoutPriority: ExpressibleByFloatLiteral {
 	public static func % (lhs: Self, rhs: UILayoutPriority) -> [Element] {
 		return lhs.map { $0 % rhs };
 	}
+	
+	public func activate () {
+		NSLayoutConstraint.activate (Array (self));
+	}
+	
+	public func deactivate () {
+		NSLayoutConstraint.deactivate (Array (self));
+	}
+}
+
+/* public */ extension Array where Element == NSLayoutConstraint {
+	public func activate () {
+		NSLayoutConstraint.activate (self);
+	}
+	
+	public func deactivate () {
+		NSLayoutConstraint.deactivate (self);
+	}
 }

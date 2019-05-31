@@ -111,13 +111,13 @@ import UIKit
 /* private */ extension NSLayoutConstraint.Context {
 	private struct UnownedWrapper: Hashable {
 		fileprivate var value: KBLayoutItem {
-			return unsafeBitCast (self.rawValue, to: KBLayoutItem.self);
+			return unsafeBitCast (self.rawValue, to: AnyObject.self) as! KBLayoutItem;
 		}
 		
 		private let rawValue: UInt;
 		
 		fileprivate init (_ value: KBLayoutItem) {
-			self.rawValue = unsafeBitCast (value, to: UInt.self);
+			self.rawValue = unsafeBitCast (value as AnyObject, to: UInt.self);
 		}
 	}
 	
