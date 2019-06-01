@@ -32,6 +32,7 @@ import UIKit
 		};
 	}
 	#else
+	@discardableResult
 	public static func make (andActivate activate: Bool = true, options: FormatOptions = [], using block: () -> ()) -> [NSLayoutConstraint] {
 		return self.perform (block) {
 			Context.push (options: options, activateWhenDone: activate);
