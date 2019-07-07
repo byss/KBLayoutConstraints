@@ -33,16 +33,32 @@ public struct KBLayoutAnchor <AnchorType> {
 		return KBLayoutAnchor (item: lhs.item, attribute: lhs.attribute, multiplier: lhs.multiplier, constant: lhs.constant + rhs);
 	}
 	
+	public static func + (lhs: KBLayoutAnchor, rhs: Double) -> KBLayoutAnchor {
+		return lhs + CGFloat (rhs);
+	}
+	
 	public static func - (lhs: KBLayoutAnchor, rhs: CGFloat) -> KBLayoutAnchor {
 		return lhs + (-rhs);
+	}
+	
+	public static func - (lhs: KBLayoutAnchor, rhs: Double) -> KBLayoutAnchor {
+		return lhs - CGFloat (rhs);
 	}
 	
 	public static func * (lhs: KBLayoutAnchor, rhs: CGFloat) -> KBLayoutAnchor {
 		return KBLayoutAnchor (item: lhs.item, attribute: lhs.attribute, multiplier: lhs.multiplier * rhs, constant: lhs.constant * rhs);
 	}
 
+	public static func * (lhs: KBLayoutAnchor, rhs: Double) -> KBLayoutAnchor {
+		return lhs * CGFloat (rhs);
+	}
+	
 	public static func / (lhs: KBLayoutAnchor, rhs: CGFloat) -> KBLayoutAnchor {
 		return lhs * (1.0 / rhs);
+	}
+	
+	public static func / (lhs: KBLayoutAnchor, rhs: Double) -> KBLayoutAnchor {
+		return lhs / CGFloat (rhs);
 	}
 	
 	@discardableResult

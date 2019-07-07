@@ -40,12 +40,22 @@ extension UILayoutPriority: ExpressibleByFloatLiteral {
 		lhs.priority = rhs;
 		return lhs;
 	}
+
+	@discardableResult
+	public static func % (lhs: NSLayoutConstraint, rhs: Double) -> NSLayoutConstraint {
+		return lhs % UILayoutPriority (Float (rhs));
+	}
 }
 
 /* public */ extension Sequence where Element == NSLayoutConstraint {
 	@discardableResult
 	public static func % (lhs: Self, rhs: UILayoutPriority) -> [Element] {
 		return lhs.map { $0 % rhs };
+	}
+	
+	@discardableResult
+	public static func % (lhs: Self, rhs: Double) -> [Element] {
+		return lhs % UILayoutPriority (Float (rhs));
 	}
 	
 	public func activate () {
