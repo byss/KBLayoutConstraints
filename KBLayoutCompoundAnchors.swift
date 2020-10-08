@@ -256,6 +256,7 @@ public struct KBLayoutSizeAnchor {
 		public typealias RawValue = UInt;
 		
 		public static let useCenterAnchor = BoundsAlignmentOptions (rawValue: 1 << 0);
+		@available (iOS 11.0, tvOS 11.0, *)
 		public static let alignToSafeArea = BoundsAlignmentOptions (rawValue: 1 << 1);
 		
 		public let rawValue: UInt;
@@ -280,10 +281,14 @@ public struct KBLayoutSizeAnchor {
 		guard let superview = self.superview else {
 			fatalError ("\(self): cannot align bounds to superview because it is not set");
 		}
-		return self.alignBounds (
-			to: options.contains (.alignToSafeArea) ? superview.safeAreaLayoutGuide : superview,
-			insets: insets,
-			useCenterAnchor: options.contains (.useCenterAnchor)
-		);
+		let target: KBLayoutItem = {
+			guard
+				#available (iOS 11.0, tvOS 11.0, *),
+				options.contains (.alignToSafeArea) else {
+				return superview;
+			}
+			return superview.safeAreaLayoutGuide;
+		} ();
+		return self.alignBounds (to: target, insets: insets, useCenterAnchor: options.contains (.useCenterAnchor));
 	}
 }
